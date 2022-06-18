@@ -5,3 +5,25 @@ The tool is very similar to the built-in linux utility `du`. By utilizing thread
 # Benchmarking
 
 # Command-line arguments
+`rdu` supports most of the commands from `du`. Some additional commands have been added, for example specifying thread count, cache usage or percentage display.
+
+Usage: `rdu [OPTION] [FILE1] [...]`  
+Usage example: `rdu /etc/ -hs`
+
+### Supported plain `du` flags
+    -h, --human-readable
+    -s, --summarize: Only display the size of the passed folders
+    -a, --all: Show every file and folder
+    -t, --time: Include the last modification time
+    -c, --total: Show total at the end under 'total', same as summarize
+    -d, --max-depth=N: Max depth to print size of, max-depth=0 is same as summarize
+    -L: dereference symbolic links
+    -P: do not dereference symbolic links (default)
+    -D, --dereference-args, also -H: deference only symbolic links sent directly in command-line as folders to check
+    -B, --block-size=SIZE: scale sizes by SIZE before printing them
+### Additional added flags
+    -T, --threads: max amount of threads to use. Default is to determine dynamically
+    -C, --use-cache: use and save to a cache file. This cache file will be used to speed up 
+        the next searches. Can optionally specify file location here, will use a tmp/ otherwise
+    -p, --percentage: show percentage usage compared to root folder
+    -m, --min-size: The minimum size of a folder to display. This can be in plain bytes, human readable or percentage.
