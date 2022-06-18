@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Script to test the performance of mdu on different amount of threads on /pkg/
+# Script to test the performance of rdu on different amount of threads on /pkg/
 # Saves the output to a file
 cd $(dirname $0)
 
@@ -14,7 +14,7 @@ max_threads=$2
 times_per_run=$3
 directory='/pkg'
 
-echo "[TEST] Running complete multi-threaded mdu $directory performance test"
+echo "[TEST] Running complete multi-threaded rdu $directory performance test"
 echo "[TEST] Using up to $max_threads threads"
 
 # Clear file if it already exists
@@ -23,8 +23,8 @@ echo "[TEST] Using up to $max_threads threads"
 # Run time.sh script for every thread up to max thread count
 for threads in $(seq $max_threads); 
 do
-    avg_time=`./time.sh -s -c $times_per_run ./../build/release/mdu -j $threads $directory`
-    echo "[TEST] mdu with $threads threads took on average: ${avg_time}s"
+    avg_time=`./time.sh -s -c $times_per_run ./../build/release/rdu -j $threads $directory`
+    echo "[TEST] rdu with $threads threads took on average: ${avg_time}s"
     # Save avg time to output file
     echo "$avg_time" >> $output_file
 done

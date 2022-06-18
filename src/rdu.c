@@ -1,7 +1,7 @@
 /**
  * Program to run a minimal du with optional multithreading support.
  *
- * @file mdu.c
+ * @file rdu.c
  * @author William Sandström
  */
 
