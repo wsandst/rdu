@@ -3,8 +3,7 @@
  * arguments of the minimal make program
  *
  * @file args.h
- * @author William Sandström (c20wsm)
- * @date ADD ON HANDIN
+ * @author wsandst
  */
 #pragma once
 #include <ctype.h>

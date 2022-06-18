@@ -3,8 +3,7 @@
  * simplify error handling and such
  *
  * @file helpers.h
- * @author William Sandström (c20wsm)
- * @date ADD ON HANDIN
+ * @author William Sandström
  */
 #pragma once
 #include <stdio.h>

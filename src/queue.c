@@ -5,8 +5,7 @@
  * [ . . . FRONT X X X X X X BACK . . . ]
  *
  * @file queue.h
- * @author William Sandström (c20wsm)
- * @date ADD ON HANDIN
+ * @author William Sandström
  */
 #include "queue.h"
 

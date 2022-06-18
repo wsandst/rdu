@@ -3,8 +3,7 @@
  * arguments of the minimal du program
  *
  * @file args.h
- * @author William Sandström (c20wsm)
- * @date ADD ON HANDIN
+ * @author William Sandström
  */
 #include "args.h"
 

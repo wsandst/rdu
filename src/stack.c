@@ -3,8 +3,7 @@
  * Implemented using a dynamic array
  *
  * @file stack.c
- * @author William Sandström (c20wsm)
- * @date ADD ON HANDIN
+ * @author William Sandström
  */
 #include "stack.h"
 

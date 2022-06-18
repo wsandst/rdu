@@ -3,8 +3,7 @@
  * Implemented using a circular dynamic array
  *
  * @file queue.h
- * @author William Sandström (c20wsm)
- * @date ADD ON HANDIN
+ * @author William Sandström
  */
 
 #pragma once

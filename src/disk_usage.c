@@ -4,8 +4,7 @@
  * of a directory or file
  *
  * @file disk_usage.c
- * @author William Sandström (c20wsm)
- * @date 2021-10-15
+ * @author William Sandström
  */
 #include "disk_usage.h"
 

@@ -2,41 +2,23 @@
  * Program to run a minimal du with optional multithreading support.
  *
  * @file mdu.c
- * @author William Sandström (c20wsm)
- * @date ADD ON HANDIN
+ * @author William Sandström
  */
 
 /*
-
 Todo:
-    Cleanup multithreaded code:
-        Maybe change pop behaviour so that we return NULL if zero? Would
-        reduce the function calls needed
-    Improve performance of multithreaded code:
-        What happens if we only push directories to the pool?
-        We do a malloc for every directory currently, can we avoid this?
-        We currently push a ton and then pop/push, we could just memcpy here
-    Implement
+    Cleanup code and add proper error handling
+    Implement more flags from 'du'
+    Add support for keeping track of a search tree with optional cache
 
     Performance ideas:
-        Test if breadth-first multiple directories work better
-        Need some solid way of benchmarking, itchy is inconsistent
-        Benchmark code
-        Sort directories files by inode number? Is this relevant on an SSD?
-            I could 
+        Aggregate multiple search directories somehow
+        Lockless stack/queue? Harald had a good idea about this
 
     Tested performance ideas that didn't work out:
         Manually while-loop in combine_strings instead of strlen and memcpy
-        Multiple directories per thread (depth first)
         Using file descriptors instead of paths:
-            Faster single-threaded, but slower with many threads
-            Why?
-
-    Handin: 
-        Make sure all the requirements are passed
-        Work on report
-        Create a separate variant for performance maybe?
-
+            Assigning file descriptors is slow (linear search for free space)
 */
 
 #include <stdio.h>
