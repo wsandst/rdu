@@ -23,7 +23,7 @@ Usage example: `rdu /etc/ -hs`
     -B, --block-size=SIZE: scale sizes by SIZE before printing them
 ### Additional added flags
     -T, --threads: max amount of threads to use. Default is to determine dynamically
-    -C, --use-cache: use and save to a cache file. This cache file will be used to speed up 
-        the next searches. Can optionally specify file location here, will use a tmp/ otherwise
+    -C, --create-cache: Create a new cache file. This will be stored in /tmp/ by default, or in a user specified location
+    -u, --use-cache: Use a created file cache. This will greatly speed up retrieving of disk usage, but this assumes that none of the files have changed since the cache creation, otherwise the results will be wrong!
     -p, --percentage: show percentage usage compared to root folder
     -m, --min-size: The minimum size of a folder to display. This can be in plain bytes, human readable or percentage.
