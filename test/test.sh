@@ -12,8 +12,8 @@ echo "[TEST] Running du and rdu comparison tests..."
 
 for path in $@
 do
-    du_result=`du -s -l -B1 $path | head -n1 | awk '{print $1;}'`
     rdu_result=`build/debug/rdu -j 2 -B1 $path | head -n1 | awk '{print $1;}'`
+    du_result=`du -s -l -B1 $path | head -n1 | awk '{print $1;}'`
     if [ "$du_result" -eq "$rdu_result" ]; then
         echo -e "[TEST] '${path}': ${GREEN} OK ${CLEAR}"
     else

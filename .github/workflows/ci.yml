@@ -12,6 +12,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: install valgrind
       run: sudo apt-get install -y valgrind
+    - name: install du
+      run: sudo apt-get install -y du
     - name: make
       run: make
     - name: make test

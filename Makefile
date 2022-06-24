@@ -90,7 +90,7 @@ unit-test: unit-test-exe
 
 # Run validity test against du
 validate-test: debug
-	bash test/test.sh "build/debug/rdu" "src" "." "$$HOME/repos/umu"
+	bash test/test.sh "build/debug/rdu" "src" "." "$$HOME"
 
 
 # Run performance test
