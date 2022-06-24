@@ -314,7 +314,8 @@ void* run_disk_usage_thread(void* arg_ptr) {
 
             int new_task_count = new_tasks.size - 1;
             stack_append(thread_args->tasks, &new_tasks);
-            // Resume the idle semafore here (if there are enough new tasks)
+            new_tasks.size = 0;
+            // Resume the idle semaphore here (if there are enough new tasks)
             while (*thread_args->idle_threads && new_task_count) {
                 (*thread_args->idle_threads)--;
                 new_task_count--;
