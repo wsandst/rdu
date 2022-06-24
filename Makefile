@@ -77,7 +77,7 @@ clean:
 # Test commands
 
 # Run all tests
-test: unit-test validate-test perf-test
+test: unit-test validate-test
 
 # Run unit tests
 unit-test: unit-test-exe
