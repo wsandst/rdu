@@ -28,7 +28,7 @@
 
 #include "util/helpers.h"
 #include "args.h"
-#include "stack.h"
+#include "util/stack.h"
 
 #define ST_NBLOCKSIZE 512 // Always 512 on linux
 

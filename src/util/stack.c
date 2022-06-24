@@ -75,5 +75,4 @@ void stack_append(Stack* stack1, Stack* stack2) {
 
     memcpy(stack1->elems + stack1->size, stack2->elems, stack2->size * sizeof(char*));
     stack1->size = new_size;
-    stack2->size = 0;
 }

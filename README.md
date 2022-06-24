@@ -1,7 +1,7 @@
 ![build](https://github.com/wsandst/rdu/actions/workflows/ci.yml/badge.svg?branch=main)
 # Rapid Disk Usage
 `rdu` is a command line utility for determining disk usage of folders and files recursively, designed for maximal speed. 
-The tool is very similar to the built-in linux utility `du`. By utilizing threads and better system calls, the performance has been increased drasticly.
+The tool is very similar to the built-in linux utility `du`. By utilizing threads and better system calls, the performance has been increased significantly.
 
 # Benchmarking
 
@@ -22,6 +22,7 @@ Usage example: `rdu /etc/ -hs`
     -P: do not dereference symbolic links (default)
     -D, --dereference-args, also -H: deference only symbolic links sent directly in command-line as folders to check
     -B, --block-size=SIZE: scale sizes by SIZE before printing them
+    
 ### Additional added flags
     -T, --threads: max amount of threads to use. Default is to determine dynamically
     -C, --create-cache: Create a new cache file. This will be stored in /tmp/ by default, or in a user specified location

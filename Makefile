@@ -13,6 +13,7 @@ SRC += $(wildcard $(SRC_DIR)/util/*.c)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 SRC_NO_MAIN := $(filter-out $(SRC_DIR)/rdu.c, $(SRC))
 TEST_SRC := $(wildcard $(TEST_DIR)/*.c)
+TEST_SRC += $(wildcard $(TEST_DIR)/*.h)
 
 DEBUG_DIR = $(BIN_DIR)/debug
 DEBUG_EXE = $(DEBUG_DIR)/$(EXE)
