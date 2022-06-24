@@ -60,8 +60,7 @@ size_t get_file_disk_usage_fd(int dirfd, char* path, bool* file_is_dir) {
 
 /**
  * Determine the disk usage of the files in directory recursively
- * Single-threaded solution using file dirs, this is only faster single threaded
- * for whatever reason. 
+ * Single-threaded solution using only file dirs.
  * 
  * @param path path of directory
  * 
@@ -359,7 +358,7 @@ void disk_usage(Options options) {
 
     char default_working_dir[512];
     if (getcwd(default_working_dir, 512) == NULL) {
-        perror("cwd");
+        perror("getcwd");
         exit(EXIT_FAILURE);
     }
 

@@ -12,6 +12,7 @@ TIMEFORMAT=%R                       # 'time' outputs a single number
 export LC_NUMERIC="en_US.UTF-8"     # 'time' outputs 0.1 instead of local format, like 0,1
 
 silent=false
+human=false
 durations=()
 times=10
 

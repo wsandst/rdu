@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "helpers.h"
+#include "util/helpers.h"
 
 typedef struct Options Options;
 

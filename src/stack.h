@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "helpers.h"
+#include "util/helpers.h"
 
 struct Stack {
     size_t size;
