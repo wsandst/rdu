@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS  := -pthread -std=gnu11 -Wall -Wextra -Wpedantic -Wmissing-declarations -Wmissing-prototypes -Wold-style-definition
+CFLAGS  := -pthread -std=gnu11 -Wall -Wextra -Wpedantic
 LDLIBS := -pthread -lm -Isrc
 
 EXE := rdu

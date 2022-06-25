@@ -4,6 +4,7 @@
 
 #include "../../src/util/stack.h"
 
+void test_stack();
 void test_stack_push_pop();
 void test_stack_append();
 
