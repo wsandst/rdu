@@ -20,7 +20,7 @@ struct FileNode {
 };
 
 // Create a new file tree, representing a filesystem with sizes
-FileNode* file_node_create();
+FileNode* file_node_new();
 
 // Add a child to a file node
 FileNode* file_tree_add_child(FileNode* parent);

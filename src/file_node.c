@@ -4,12 +4,24 @@ static FileNode* file_tree_linearize(FileNode* root);
 static void file_tree_remap_recurse(FileNode* node, int* index, FileNode** node_pointers);
 
 // Create a new file tree, representing a filesystem with sizes
-FileNode* file_node_create() {
+FileNode* file_node_new() {
     return calloc(1, sizeof(FileNode));
 }
 
+// Free the entire tree below, starting with this root node
+FileNode* file_node_free_all(FileNode* node) {
+    if (node->next_sibling) {
+        file_node_free_all(node->next_sibling);
+    }
+    if (node->first_child) {
+        file_node_free_all(node->first_child);
+    }
+    free(node);
+}
+
+// Add a child to the parent node.
 FileNode* file_tree_add_child(FileNode* parent) {
-    FileNode* node = file_node_create();
+    FileNode* node = file_node_new();
     if (parent->first_child == NULL) {
         parent->first_child = node;
         parent->last_child = node;

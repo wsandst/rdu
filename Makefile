@@ -5,15 +5,15 @@ LDLIBS := -pthread -lm -Isrc
 EXE := rdu
 SRC_DIR := src
 BIN_DIR := build
-TEST_DIR := test/unit
+TEST_SRC_DIR := test/unit
 TEST_OBJ_DIR := build/test
 
 SRC := $(wildcard $(SRC_DIR)/*.c)
 SRC += $(wildcard $(SRC_DIR)/util/*.c)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 SRC_NO_MAIN := $(filter-out $(SRC_DIR)/rdu.c, $(SRC))
-TEST_SRC := $(wildcard $(TEST_DIR)/*.c)
-TEST_SRC += $(wildcard $(TEST_DIR)/*.h)
+TEST_SRC := $(wildcard $(TEST_SRC_DIR)/*.c)
+TEST_SRC += $(wildcard $(TEST_SRC_DIR)/*.h)
 
 DEBUG_DIR = $(BIN_DIR)/debug
 DEBUG_EXE = $(DEBUG_DIR)/$(EXE)
@@ -29,9 +29,9 @@ RELEASE_CFLAGS := -O3 -march=native
 
 TEST_DIR = $(BIN_DIR)/test
 TEST_EXE := $(TEST_DIR)/$(EXE)-test
-TEST_OBJ := $(TEST_SRC:$(TEST_DIR)/%.c=$(TEST_DIR)/obj/%.o)
+TEST_OBJ := $(TEST_SRC:$(TEST_SRC_DIR)/%.c=$(TEST_DIR)/obj/%.o)
 TEST_OBJ += $(SRC_NO_MAIN:$(SRC_DIR)/%.c=$(TEST_DIR)/obj/%.o)
-TEST_OBJ_DIR := $(TEST_DIR)/obj $(TEST_DIR)/obj/util
+TEST_OBJ_DIR := $(TEST_DIR)/obj $(TEST_DIR)/obj/util $(TEST_DIR)/obj/unit
 RDU_PERF_TEST_DIR ?= ~
 
 .PHONY: all debug release clean test time
@@ -61,12 +61,15 @@ $(RELEASE_DIR)/obj/%.o: $(SRC_DIR)/%.c | $(RELEASE_DIR) $(RELEASE_OBJ_DIR)
 
 # Unit test build
 
-unit-test-exe: $(TEST_EXE)
+unit-test-exe: clean $(TEST_EXE)
 	
-$(TEST_EXE): $(TEST_OBJ) $(DEBUG) | $(BIN_DIR) $(TEST_DIR) $(TEST_OBJ_DIR)
+$(TEST_EXE): $(TEST_OBJ) | $(BIN_DIR) $(TEST_DIR) $(TEST_OBJ_DIR)
 	$(CC) $^ $(LDLIBS) -o $@
 
 $(TEST_DIR)/obj/%.o: $(SRC_DIR)/%.c | $(TEST_DIR) $(TEST_OBJ_DIR)
+	$(CC) $(CFLAGS) $(DEBUG_CFLAGS) -c $< -o $@
+
+$(TEST_DIR)/obj/test.o: $(TEST_SRC) | $(TEST_DIR) $(TEST_OBJ_DIR)
 	$(CC) $(CFLAGS) $(DEBUG_CFLAGS) -c $< -o $@
 
 $(BIN_DIR) $(DEBUG_DIR) $(DEBUG_OBJ_DIR) $(RELEASE_DIR) $(RELEASE_OBJ_DIR) $(TEST_DIR) $(TEST_OBJ_DIR):
