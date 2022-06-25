@@ -13,11 +13,19 @@
 #include <string.h>
 
 #include "helpers.h"
+#include "../file_node.h"
+
+struct StackEntry {
+    char* path;
+    FileNode* node;
+};
+
+typedef struct StackEntry StackEntry;
 
 struct Stack {
     size_t size;
     size_t max_size;
-    char** elems;
+    StackEntry* elems;
 };
 
 typedef struct Stack Stack;
@@ -49,12 +57,12 @@ bool stack_is_empty(Stack* stack);
 /**
  * Push a string to the end of the stack
  */
-void stack_push(Stack* stack, char* elem);
+void stack_push(Stack* stack, StackEntry elem);
 
 /**
  * Pop a string from the end of the stack
  */
-char* stack_pop(Stack* stack);
+StackEntry stack_pop(Stack* stack);
 
 /**
  * Add stack2 to the end of stack1 using memcpy

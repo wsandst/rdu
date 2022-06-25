@@ -27,12 +27,7 @@ Todo:
         -m, --min-size: The minimum size of a folder to display. This can be in plain bytes, human readable or percentage.
     
     Add support for keeping track of a search tree with optional cache:
-        Keep a tree of every folder with sizes. Once the cache is created, convert
-        this tree into a hashmap. Save this hashmap to a file.
-        When using the cache, the naive way is to just check if the folder is in the hashmap.
-        I lose linking information by doing this though. One way would be to include the folder
-        names with the item. Sounds slow. Might be better to just linearize the tree somehow? 
-        Would allow for updating caches as well with new folders and such.
+        
 
     Performance ideas:
         Aggregate multiple search directories somehow

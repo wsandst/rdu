@@ -17,7 +17,7 @@ Stack stack_new(size_t initial_size) {
     Stack stack;
     stack.size = 0;
     stack.max_size = initial_size;
-    stack.elems = checked_malloc(stack.max_size, sizeof(char*));
+    stack.elems = checked_malloc(stack.max_size, sizeof(StackEntry));
     return stack;
 }
 
@@ -41,13 +41,13 @@ bool stack_is_empty(Stack* stack) {
  */
 void stack_reserve(Stack* stack, size_t new_max_size) {
     stack->max_size = new_max_size;
-    stack->elems = checked_realloc(stack->elems, stack->max_size, sizeof(char*));
+    stack->elems = checked_realloc(stack->elems, stack->max_size, sizeof(StackEntry));
 }
 
 /**
  * Push a string to the end of the stack
  */
-void stack_push(Stack* stack, char* elem) {
+void stack_push(Stack* stack, StackEntry elem) {
     stack->size++;
     if (stack->size > stack->max_size) {
         stack_reserve(stack, stack->max_size * 2);
@@ -58,7 +58,7 @@ void stack_push(Stack* stack, char* elem) {
 /**
  * Pop a string from the end of the stack
  */
-char* stack_pop(Stack* stack) {
+StackEntry stack_pop(Stack* stack) {
     stack->size--;
     return stack->elems[stack->size];
 }
@@ -73,6 +73,6 @@ void stack_append(Stack* stack1, Stack* stack2) {
         stack_reserve(stack1, new_size * 2);
     }
 
-    memcpy(stack1->elems + stack1->size, stack2->elems, stack2->size * sizeof(char*));
+    memcpy(stack1->elems + stack1->size, stack2->elems, stack2->size * sizeof(StackEntry));
     stack1->size = new_size;
 }

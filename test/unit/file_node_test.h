@@ -32,6 +32,7 @@ void test_file_node_saving() {
     FileNode* child1 = file_tree_add_child(root);
     FileNode* child2 = file_tree_add_child(root);
     FileNode* child21 = file_tree_add_child(child2);
+    root->file_size = 10;
 
     file_tree_save(root, "build/test/obj/tree.dat");
     file_node_free_all(root);
@@ -41,6 +42,7 @@ void test_file_node_saving() {
     child2 = root->last_child;
     child21 = child2->first_child;
 
+    assert(root->file_size == 10);
     test_file_node_validate_tree(root, child1, child2, child21);
     file_node_free_all(root);
 }

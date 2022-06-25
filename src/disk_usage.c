@@ -104,6 +104,9 @@ size_t total_disk_usage_task_st(int dir_fd) {
     return disk_usage_size;
 }
 
+// Every entry in the stack is the directory, then the corresponding file tree node. Add
+// children once encountered
+
 /**
  * Determine the disk usage of the files in directory
  * If a containing file is a directory, add the path to new_tasks
@@ -117,6 +120,7 @@ size_t total_disk_usage_task_st(int dir_fd) {
  */
 size_t total_disk_usage_task_time(char* path, Stack* new_tasks, long int* time_spent) {
     size_t disk_usage_size = 0;
+    StackEntry stack_entry;
 
     struct timespec before, after;
     clock_gettime(CLOCK_REALTIME, &before);
@@ -155,7 +159,8 @@ size_t total_disk_usage_task_time(char* path, Stack* new_tasks, long int* time_s
                     }
                     new_path[path_length] = '/';
                     strcpy(new_path + path_length + 1, dir_entry->d_name);
-                    stack_push(new_tasks, new_path);
+                    stack_entry.path = new_path;
+                    stack_push(new_tasks, stack_entry);
                 }
             }
             bpos += dir_entry->d_reclen;
@@ -187,6 +192,7 @@ size_t total_disk_usage_task_time(char* path, Stack* new_tasks, long int* time_s
  */
 size_t total_disk_usage_task(char* path, Stack* new_tasks) {
     size_t disk_usage_size = 0;
+    StackEntry stack_entry;
 
     int path_length;
     bool first_dir = true;
@@ -223,7 +229,8 @@ size_t total_disk_usage_task(char* path, Stack* new_tasks) {
                     }
                     new_path[path_length] = '/';
                     strcpy(new_path + path_length + 1, dir_entry->d_name);
-                    stack_push(new_tasks, new_path);
+                    stack_entry.path = new_path;
+                    stack_push(new_tasks, stack_entry);
                 }
             }
             bpos += dir_entry->d_reclen;
@@ -285,7 +292,7 @@ void* run_disk_usage_thread(void* arg_ptr) {
             //pthread_mutex_unlock(thread_args->tasks_mutex);
         }
         else {
-            char* task_path = stack_pop(thread_args->tasks);
+            StackEntry task = stack_pop(thread_args->tasks);
             pthread_mutex_unlock(thread_args->tasks_mutex);
 
 #ifdef PROFILE_TIME // Time the threads
@@ -300,11 +307,11 @@ void* run_disk_usage_thread(void* arg_ptr) {
             }
     #endif
 #else // No timing
-            thread_args->total_size_bytes += total_disk_usage_task(task_path, &new_tasks);
+            thread_args->total_size_bytes += total_disk_usage_task(task.path, &new_tasks);
     #ifdef SINGLE_TASK_OPTIMIZATION
             while (new_tasks.size == 1) {
-                task_path = stack_pop(&new_tasks);
-                thread_args->total_size_bytes += total_disk_usage_task(task_path,
+                task = stack_pop(&new_tasks);
+                thread_args->total_size_bytes += total_disk_usage_task(task.path,
                                                                        &new_tasks);
             }
     #endif
@@ -404,7 +411,9 @@ void disk_usage(Options options) {
             else {
                 char* current_file_path = malloc(512);
                 strcpy(current_file_path, "./");
-                stack_push(&tasks, current_file_path);
+                StackEntry stack_task;
+                stack_task.path = current_file_path;
+                stack_push(&tasks, stack_task);
 
                 for (size_t i = 0; i < options.thread_count; i++) {
                     pthread_create(&tid[i], NULL, run_disk_usage_thread,
