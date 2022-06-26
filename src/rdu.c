@@ -9,25 +9,30 @@
 Todo:
     Cleanup code and add proper error handling
     Implement more flags from 'du':
-        -h , --human-readable
-        -s, --summarize: This is how it works currently by default, summarize for passed folder
-        -a, --all: Show every file and folder
-        -t, --time: Include the last modification time
-        -c, --total: Show total at the end under 'total', same as summarize
-        -d, --max-depth=N: Max depth to print size of, max-depth=0 is same as summarize
-        -L: dereference symbolic links
-        -P: do not dereference symbolic links (default)
-        -D, --dereference-args, also -H: deference only symbolic links sent directly in command-line as folders to check
-        -B, --block-size=SIZE: scale sizes by SIZE before printing them
+        -h , --human-readable (end action)
+        -s, --summarize: This is how it works currently by default, summarize for passed folder (thread action)
+        -a, --all: Show every file and folder (end action, thread action (keep tree))
+        -t, --time: Include the last modification time (end action, thread action (keep tree))
+        -c, --total: Show total at the end under 'total', same as summarize (end action)
+        -d, --max-depth=N: Max depth to print size of, max-depth=0 is same as summarize (thread action, keep ply in tree)
+        -L: dereference symbolic links (thread action)
+        -P: do not dereference symbolic links (default) (thread action)
+        -D, --dereference-args, also -H: deference only symbolic links sent directly in command-line as folders to check (start action)
+        -B, --block-size=SIZE: scale sizes by SIZE before printing them (end action, already have this)
     My own flags:
-        -T, --threads: max amount of threads to use. Default is to determine dynamically
-        -C, --use-cache: use and save to a cache file. This cache file will be used to speed up 
+        -j, --threads: max amount of threads to use. Default is to determine dynamically (start action, already have this)
+        -C, --use-cache: use and save to a cache file. This cache file will be used to speed up (thread action, use tree, then end action, save tree)
             the next searches. Can optionally specify file location here, will use a tmp/ otherwise
-        -p, --percentage: show percentage usage compared to root folder
-        -m, --min-size: The minimum size of a folder to display. This can be in plain bytes, human readable or percentage.
+        -m, --min-size: The minimum size of a folder to display. This can be in plain bytes, human readable or percentage. (end action, keep tree)
     
     Add support for keeping track of a search tree with optional cache:
         
+
+    Alright, in the threads, we have two main options:
+        Keep tree
+        Do not keep tree (-s only)
+        If we keep tree, we need to keep track of depth and time information.
+        Every node also needs the name and the size. 
 
     Performance ideas:
         Aggregate multiple search directories somehow

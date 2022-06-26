@@ -15,9 +15,25 @@
 Options parse_arguments(int argc, char* argv[]) {
     Options options;
     options.files = NULL;
-    options.thread_count = 1;
+    options.thread_count = sysconf(_SC_NPROCESSORS_ONLN);
     options.block_size = 512;
     opterr = 0;
+
+    /*static struct option long_options[] = { { "human-readable", no_argument, 0, 'h' },
+                                            { "summarize", no_argument, 0, 'a' },
+                                            { "max-depth", no_argument, 0, 'b' },
+                                            { "all", no_argument, 0, 'a' },
+                                            { "time", no_argument, 0, 't' },
+                                            { "total", no_argument, 0, 'c' },
+                                            { "max-depth", required_argument, 1, 'd' },
+                                            { "dereference", no_argument, 0, 'L' },
+                                            { "dereference-args", no_argument, 0, 'D' },
+                                            { "block-size", required_argument, 1, 'B' },
+                                            { "threads", required_argument, 1, 'j' },
+                                            { "create-cache", optional_argument, 1, 'C' },
+                                            { "use-cache", optional_argument, 1, 'u' },
+                                            { "min-size", required_argument, 1, 'm' },
+                                            { 0, 0, 0, 0 } };*/
 
     // Parse flags
     int arg_c = getopt(argc, argv, "j:B:");

@@ -16,16 +16,14 @@ Usage example: `rdu /etc/ -hs`
     -t, --time: Include the last modification time
     -c, --total: Show total at the end under 'total', same as summarize
     -d, --max-depth=N: Max depth to print size of, max-depth=0 is same as summarize
-    -L: dereference symbolic links
-    -P: do not dereference symbolic links (default)
+    -L, --dereference: dereference symbolic links
     -D, --dereference-args, also -H: deference only symbolic links sent directly in command-line as folders to check
     -B, --block-size=SIZE: scale sizes by SIZE before printing them
     
 ### Additional added flags
-    -j, --threads: max amount of threads to use. Default is to determine dynamically
+    -j, --threads: max amount of threads to use. Default is to use logical core count
     -C, --create-cache: Create a new cache file. This will be stored in /tmp/ by default, or in a user specified location
     -u, --use-cache: Use a created file cache. This will greatly speed up retrieving of disk usage, but this assumes that none of the files have changed since the cache creation, otherwise the results will be wrong!
-    -p, --percentage: show percentage usage compared to root folder
     -m, --min-size: The minimum size of a folder to display. This can be in plain bytes, human readable or percentage.
 
 # Benchmarks

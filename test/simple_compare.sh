@@ -9,9 +9,9 @@ fi
 
 dir=$1
 
-rdu_cmd="../build/release/rdu -j 32 $dir"
+rdu_cmd="../build/release/rdu -j 16 $dir"
 rdu_st_cmd="../build/release/rdu -j 1 $dir"
-mdu_cmd="$HOME/repos/umu/sysn/sysn-ou3/build/release/mdu -j 32 $dir"
+mdu_cmd="$HOME/repos/umu/sysn/sysn-ou3/build/release/mdu -j 16 $dir"
 mdu_st_cmd="$HOME/repos/umu/sysn/sysn-ou3/build/release/mdu -j 1 $dir"
 
 hyperfine -i --export-markdown ../build/reg-comp.md --warmup 3 \

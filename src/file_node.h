@@ -10,15 +10,19 @@ typedef struct FileTree FileTree;
 typedef struct FileNode FileNode;
 
 struct FileNode {
+    // Data
     char name[256];
     size_t file_size; // Size of this individual file
     size_t complete_size; // Includes every child size
-    // Children are a linked list
+    size_t depth; // Depth of node from root
+    time_t last_access_time; // Last access time
+    // Tree information
     FileNode* parent;
+    // Children are stored as a linked list
     FileNode* first_child; // Pointer to the first child
     FileNode* last_child; // Pointer to the last child
-    FileNode* next_sibling; // Pointer to the
-    FileNode* previous_sibling;
+    FileNode* next_sibling; // Pointer to the next sibling
+    FileNode* previous_sibling; // Pointer to the previous sibling
     size_t _linear_index;
 };
 

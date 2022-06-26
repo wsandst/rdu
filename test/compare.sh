@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Comparison test between different du:s
-#cd $(dirname $0)
+cd $(dirname $0)
 
 # Compare between du, rdu, mdu, Harald mdu, diskus, tin-summer, dust
 
@@ -13,10 +13,10 @@ fi
 dir=$1
 
 du_cmd="du -s -l -B1 /home/williamsandst/"
-rdu_cmd="../build/release/rdu -j 32 $dir"
-mdu_cmd="$HOME/repos/umu/sysn/sysn-ou3/build/release/mdu -j 32 $dir"
+rdu_cmd="../build/release/rdu -j 16 $dir"
+mdu_cmd="$HOME/repos/umu/sysn/sysn-ou3/build/release/mdu -j 16 $dir"
 mdu_st_cmd="$HOME/repos/umu/sysn/sysn-ou3/build/release/mdu -j 1 $dir"
-mdu_hbf_cmd="$HOME/repos/umu/sysn/mdu-hbf/mdu_competition -j 32 $dir"
+mdu_hbf_cmd="$HOME/repos/umu/sysn/mdu-hbf/mdu_competition -j 16 $dir"
 mdu_st_hbf_cmd="$HOME/repos/umu/sysn/mdu-hbf/mdu_competition -j 1 $dir"
 diskus_cmd="diskus $dir"
 tinsummer_cmd="sn p -d0 -j16 $dir"

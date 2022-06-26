@@ -46,6 +46,12 @@ struct ThreadArgs {
     size_t* idle_threads;
     bool* all_threads_complete;
     long int time_spent_in_task;
+
+    FileNode* file_tree_root;
+    bool keep_file_tree;
+    bool track_modification_time;
+    bool use_cache;
+    FileNode* file_cache_root;
     //bool error_encountered;
 };
 
