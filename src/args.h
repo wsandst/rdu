@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <math.h>
+#include <limits.h>
 
 #include "util/helpers.h"
 
@@ -25,12 +26,11 @@ struct Options {
     // Display options
     size_t block_size;
     bool human_readable;
-    bool summarize;
     bool show_total;
-    bool show_every_file; // Show every file, not only just the default of folders
+    bool show_regular_files; // Show every file, not only just the default of folders
     size_t min_display_size; // Only display files of a certain size
     double min_display_size_percent; // Only display files of a certain percentage of total
-    size_t max_depth; // Only display up to a certain depth
+    int max_depth; // Only display up to a certain depth
 
     // Search options
     size_t thread_count;

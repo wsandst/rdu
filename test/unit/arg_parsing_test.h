@@ -39,7 +39,7 @@ void test_min_size_parsing() {
 
     // Test suffix
     assert(try_parse_min_size_str("1K", &bytes, &percentage));
-    assert(bytes == 1000);
+    assert(bytes == 1024);
 
     assert(try_parse_min_size_str("1KB", &bytes, &percentage));
     assert(bytes == 1000);
@@ -52,23 +52,23 @@ void test_min_size_parsing() {
     assert(bytes == 1024);
 
     // Test the rest of the suffixes
-    assert(try_parse_min_size_str("1M", &bytes, &percentage));
+    assert(try_parse_min_size_str("1Mb", &bytes, &percentage));
     assert(bytes == 1000000);
-    assert(try_parse_min_size_str("1G", &bytes, &percentage));
+    assert(try_parse_min_size_str("1Gb", &bytes, &percentage));
     assert(bytes == 1000000000);
-    assert(try_parse_min_size_str("1T", &bytes, &percentage));
+    assert(try_parse_min_size_str("1Tb", &bytes, &percentage));
     assert(bytes == 1000000000000);
 
     // Test decimal numbers
-    assert(try_parse_min_size_str("1.5M", &bytes, &percentage));
+    assert(try_parse_min_size_str("1.5Mb", &bytes, &percentage));
     assert(bytes == 1500000);
-    assert(try_parse_min_size_str("1.32G", &bytes, &percentage));
+    assert(try_parse_min_size_str("1.32Gb", &bytes, &percentage));
     assert(bytes == 1320000000);
     // Comma separators are not allowed
-    assert(!try_parse_min_size_str("1,32G", &bytes, &percentage));
+    assert(!try_parse_min_size_str("1,32Gb", &bytes, &percentage));
     // Byte values under 1 not allowed
     assert(!try_parse_min_size_str("0.1", &bytes, &percentage));
-    assert(!try_parse_min_size_str("0.0001K", &bytes, &percentage));
+    assert(!try_parse_min_size_str("0.0001Kb", &bytes, &percentage));
 
     // Test percentage
     bytes = 0;

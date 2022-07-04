@@ -61,9 +61,7 @@ void* checked_realloc(void* ptr, size_t length, size_t bytes) {
  * Print error message to stderr and exit with EXIT_FAILURE
  */
 void stderr_and_exit(char* error_message) {
-    char str_buf[256];
-    snprintf(str_buf, 255, "Error: %s\n", error_message);
-    fprintf(stderr, "%s", str_buf);
+    fprintf(stderr, "rdu: Error: %s\n", error_message);
     exit(EXIT_FAILURE);
 }
 
@@ -71,6 +69,7 @@ void stderr_and_exit(char* error_message) {
  * Print perror and exit with EXIT_FAILURE
  */
 void perror_and_exit(char* error_message) {
+    fprintf(stderr, "rdu: %s: %s\n", error_message, strerror(errno));
     perror(error_message);
     exit(EXIT_FAILURE);
 }
