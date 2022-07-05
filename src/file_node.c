@@ -162,3 +162,42 @@ FileNode* file_tree_load(char* filename) {
     free(linear_mem);
     return root;
 }
+
+// Find a node in the tree with a specific inode
+FileNode* file_tree_find(FileNode* node, ino_t inode) {
+    while (node) {
+        if (node->inode == inode) {
+            // Use inode to check for true equality, we can get
+            // ambiguity otherwise because filepaths can have the same names
+            return node;
+        }
+        // Recurse
+        if (node->first_child) {
+            FileNode* res = file_tree_find(node->first_child, inode);
+            if (res != NULL) {
+                return res;
+            }
+        }
+        // Start with files that seem to match the given filepath
+        /*else if (str_startswith(filepath, node->name)) {
+            // Only traverse deeper if the node name matches with the filepath
+            int slash_index = str_index_of(filepath, '/');
+            // End of filepath if -1, do not go deeper
+            if (slash_index != -1 && filepath[slash_index + 1] != '\0') {
+                FileNode* found_node = file_tree_find(node->first_child,
+                                                      filepath + slash_index + 1, inode);
+                if (found_node != NULL) {
+                    return found_node;
+                }
+            }
+        }*/
+        node = node->next_sibling;
+    }
+
+    return NULL;
+}
+
+// Set the name of the file node
+void file_node_set_name(FileNode* node, char* name) {
+    strcpy(node->name, name);
+}

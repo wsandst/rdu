@@ -6,6 +6,7 @@
 
 void test_file_node_simple();
 void test_file_node_saving();
+void test_file_node_find();
 void test_file_node_validate_tree(FileNode* root, FileNode* child1, FileNode* child2,
                                   FileNode* child21);
 
@@ -14,6 +15,7 @@ void test_file_node() {
 
     test_file_node_simple();
     test_file_node_saving();
+    test_file_node_find();
 
     printf("[UNIT-TEST] Passed file node/tree tests!\n");
 }
@@ -65,4 +67,33 @@ void test_file_node_validate_tree(FileNode* root, FileNode* child1, FileNode* ch
     assert(child21->first_child == NULL);
 
     assert(file_tree_count_nodes(root) == 4);
+}
+
+void test_file_node_find() {
+    FileNode* root = file_node_new();
+    root->inode = 1;
+    FileNode* child1 = file_tree_add_child(root);
+    child1->inode = 2;
+    FileNode* child2 = file_tree_add_child(root);
+    child2->inode = 3;
+    FileNode* child21 = file_tree_add_child(child2);
+    child21->inode = 4;
+
+    // Deepest node
+    FileNode* found_node = file_tree_find(root, 4);
+    assert(found_node == child21);
+
+    // Invalid inode
+    found_node = file_tree_find(root, 5);
+    assert(found_node == NULL);
+
+    // Root node
+    found_node = file_tree_find(root, 1);
+    assert(found_node == root);
+
+    // Level up (root), is not searched
+    found_node = file_tree_find(child1, 1);
+    assert(found_node == NULL);
+
+    file_node_free_all(root);
 }

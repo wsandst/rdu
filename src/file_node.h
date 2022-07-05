@@ -3,8 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
 
 #include "util/file_helpers.h"
+#include "util/string_helpers.h"
 
 typedef struct FileTree FileTree;
 typedef struct FileNode FileNode;
@@ -12,6 +14,7 @@ typedef struct FileNode FileNode;
 struct FileNode {
     // Data
     char name[256];
+    ino_t inode;
     size_t file_size; // Size of this individual file
     size_t complete_size; // Includes every child size
     size_t depth; // Depth of node from root
@@ -32,6 +35,9 @@ FileNode* file_node_new();
 // Free the entire tree below, starting with this root node
 void file_node_free_all(FileNode* node);
 
+// Set the name of the file node
+void file_node_set_name(FileNode* node, char* name);
+
 // Add a child to a file node
 FileNode* file_tree_add_child(FileNode* parent);
 
@@ -43,3 +49,6 @@ void file_tree_save(FileNode* root, char* filename);
 
 // Count the amount of nodes in the tree, ie all decendents and neighbours of node
 size_t file_tree_count_nodes(FileNode* node);
+
+// Find a node in the tree with a specific filepath and inode
+FileNode* file_tree_find(FileNode* node, ino_t inode);

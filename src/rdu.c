@@ -29,10 +29,14 @@ Todo:
         
 
     Alright, in the threads, we have two main options:
-        Keep tree
-        Do not keep tree (-s only)
-        If we keep tree, we need to keep track of depth and time information.
-        Every node also needs the name and the size. 
+        Do not keep tree (depth=0 only)
+        Keep tree:
+            If we keep tree, we need to keep track of time information.
+            Every node also needs the name and the size. 
+            If cache save is enabled, we save the tree at the end
+            If cache usage is enabled, at the start we traverse the thread single-threaded
+            and check for a match. If no match, search normally
+            Is cache save and usage fine in same? I guess, just need to start a new root node
 
     Performance ideas:
         Aggregate multiple search directories somehow
